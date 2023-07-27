@@ -1,5 +1,5 @@
 ## Generar-pdf-flask
-In the present repository it is empirically illustrated how to generate pdf files through data sent through an html form using flask and reportlab
+En el presente repositorio se observara de manera empirica como desarrollar un modulo parala generacion de pdf con el lenguaje de programación, utilizando para cada metodo distintas librerias y configuraciones que se pueden ajustar a las necesidades de nuestros proyectos. // In this repository it will be observed empirically how to develop a module for the generation of pdf with the programming language, using for each method different libraries and configurations that can be adjusted to the needs of our projects.
 
 ## Requisitos previos
 * Python [python download](https://www.python.org/downloads/release/python-31010/)
