@@ -1,3 +1,4 @@
+# Apartado para importar todos los modulos necessarios.
 from flask import Flask, render_template, request, redirect, url_for, flash
 import flask
 import jinja2
@@ -5,54 +6,61 @@ import pdfkit
 import uuid
 import os
 
+# Definimos variable app para inicializar el servidor.
 app = flask.Flask(__name__)
 
+# ---------------------------------------------------------------------------
+# Apartado de rutas importantes.
 RUTA_TEMPORAL = 'src/static/temp'
+output_pdf = r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\pdf\pdf_generado.pdf"
+rutacss= r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\css\styleplantilla.css"
+# ---------------------------------------------------------------------------
 
-# Función para verificar si la extensión del archivo es permitida
+
+# Función para verificar si la extensión del archivo es compalible.
 def extensiones_validas(filename):
-    # Lista de extensiones permitidas para los archivos de imagen
+    # Lista de extensiones permitidas para los archivos de imagen.
     extensiones_permitidas = {'png', 'jpg', 'jpeg', 'gif'}
 
-    # Obtener la extensión del archivo
+    # Obtener la extensión del archivo.
     extension = filename.rsplit('.', 1)[1].lower()
 
-    # Verificar si la extensión está permitida
+    # Verificar si la extensión está permitida.
     if '.' in filename and extension in extensiones_permitidas:
         print("yes")
         return True
     else:
         return False
     
-# Función para obtener la extensión del archivo
-def get_extension(filename):
-    return filename.rsplit('.', 1)[1].lower()
-
+# Ruta principal donde se aloja el formulario de donde obtendremos los datos.
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Generar pdf con datos optenidos de formulario    
+# Generar pdf con datos obtenidos de formulario.  
 @app.route('/generarPdf', methods=['GET', 'POST'])
+# Función general para generar pdf.
 def generarPdf():
+    # Condicional para corroborar la recepción de los datos en el formulario.
     if request.method == 'POST':
-
+        
+        # Datos obtenidos del formulario.
         raza = request.form['raza']
         nombre_hermano = request.form['nombre']
         descripcion = request.form['descripcion']
         imagen = request.files['archivo']
 
+        # Condicional donde utilizaremos la funcion de extensiones_validas, para evaluar si el archivo esta permitido o no.
         if(request.files['archivo'] and extensiones_validas(imagen.filename)):
             archivo_temporal = os.path.join(RUTA_TEMPORAL, str(uuid.uuid4()) + '.' + 'jpg')
             imagen.save(archivo_temporal)
 
             nombre_archivo = os.path.basename(archivo_temporal)
             imagen = 'E:/documentación etapa productiva -_-/Proyecto_APEI/GENERAR-PDF/Metodo con pdfkit/src/static/temp' + '/' + nombre_archivo
-
         else:
             return "archivo invalido como tu papa gonorrea"
 
-        print(imagen)
+        # Definimos la variable context para definir los apartados a renderizar en la plantilla html antes de construir el pdf.
         context = {'Raza': raza, 'imagen': imagen, 'descripcion': descripcion, 'nombre_hermano':nombre_hermano}
 
         template_loader = jinja2.FileSystemLoader('src/templates/plantillashtml')
@@ -62,7 +70,7 @@ def generarPdf():
         template = template_env.get_template(html_template)
         output_text = template.render(context)
 
-        # Configuración para pdfkit
+        # Configuración para pdfkit con el archivo externo wkhtmltopdf.
         config = pdfkit.configuration(wkhtmltopdf=r"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
 
         options = { 'page-size': 'Letter',
@@ -79,9 +87,6 @@ def generarPdf():
                     'load-media-error-handling': 'ignore',
                     'load-error-handling': 'skip',
                     'enable-local-file-access': True}
-
-        output_pdf = r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\pdf\pdf_generado.pdf"
-        rutacss= r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\css\styleplantilla.css"
 
         pdfkit.from_string(output_text, output_pdf, css=rutacss, options = options, configuration=config)
 
