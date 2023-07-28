@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1{
+    color:black;
+    text-align: center;
+}
+p{
+    text-align: justify;
+    color: black;
+    font-size: 1rem;
+}
+.nombre{
+    text-align: center !important;
+}
+.parrafo1{
+    margin: 0 auto;
+    width: 688px;
+    line-height: 1.5rem;
+}
+img{
+    width: 688px;
+}
