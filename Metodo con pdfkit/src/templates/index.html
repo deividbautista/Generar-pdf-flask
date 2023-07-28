@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styleAlerts.css">
     <title>Formulario para generar pdf</title>
 </head>
+
 <body>
     <h1>Formulario</h1>
     <form method="POST" action="/generarPdf" enctype="multipart/form-data">
@@ -22,5 +25,22 @@
         <input type="file" name="archivo">
         <input type="submit" value="Enviar">
     </form>
+    {%block body%}
+    {% if (typeAlert==1) %}
+    <div class="toast_alert active">
+        <div class="toast_alert-content">
+            <i class="fa-solid fa-check check"></i>
+            <div class="message">
+                <span class="text text-1">Pdf generado correctamente 🥳</span>
+                <span class="text text-2">{{ msjAlert }}</span>
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+        <div class="progress active"></div>
+    </div>
+    {% endif %}
+    {%endblock body%}
 </body>
+<script src="../static/js/alerts.js"></script>
+<script src="https://kit.fontawesome.com/9c61ead5a6.js" crossorigin="anonymous"></script>
 </html>

@@ -13,7 +13,7 @@ app = flask.Flask(__name__)
 # Apartado de rutas importantes.
 RUTA_TEMPORAL = 'src/static/temp'
 output_pdf = r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\pdf\pdf_generado.pdf"
-rutacss= r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\css\styleplantilla.css"
+rutacss= r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\css\stylePlantilla.css"
 # ---------------------------------------------------------------------------
 
 
@@ -105,7 +105,8 @@ def generarPdf():
         os.remove(archivo_temporal)
 
         # Devuelve una respuesta con el PDF adjunto para descargar.
-        return redirect(url_for("home"))
+        typeAlert = 1
+        return render_template('index.html', typeAlert=typeAlert)
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
