@@ -32,12 +32,16 @@ def extensiones_validas(filename):
     else:
         return False
     
-# Ruta principal donde se aloja el formulario de donde obtendremos los datos.
+# -------------------------------------------------------------------------
+# Seccion de ruta principal
+# -------------------------------------------------------------------------
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Generar pdf con datos obtenidos de formulario.  
+# -------------------------------------------------------------------------
+# Seccion de generación de pdf
+# -------------------------------------------------------------------------  
 @app.route('/generarPdf', methods=['GET', 'POST'])
 # Función general para generar pdf.
 def generarPdf():
@@ -55,24 +59,30 @@ def generarPdf():
             archivo_temporal = os.path.join(RUTA_TEMPORAL, str(uuid.uuid4()) + '.' + 'jpg')
             imagen.save(archivo_temporal)
 
+            # Aqui obtenemos el nombre del archivo que estamos reicibiendo del formulario.
             nombre_archivo = os.path.basename(archivo_temporal)
+            # Definimos el valor de imagen para obtener la ruta absoluta en donde se esta guardando el archivo de manera temporal.
             imagen = 'E:/documentación etapa productiva -_-/Proyecto_APEI/GENERAR-PDF/Metodo con pdfkit/src/static/temp' + '/' + nombre_archivo
         else:
+            # En caso de no tener un archivo permitido se retornara el mensaje de error.
             return "archivo invalido como tu papa gonorrea"
 
         # Definimos la variable context para definir los apartados a renderizar en la plantilla html antes de construir el pdf.
         context = {'Raza': raza, 'imagen': imagen, 'descripcion': descripcion, 'nombre_hermano':nombre_hermano}
 
         template_loader = jinja2.FileSystemLoader('src/templates/plantillashtml')
+        # Definimos la variable que guarde la ruta de la plantilla html
         template_env = jinja2.Environment(loader=template_loader) 
-        
+        # Definimos la variable que almacenara nuestra plantilla html
         html_template = "plantilla1.html"
         template = template_env.get_template(html_template)
+        # Definimos la variable donde se guarda el renderizado de la plantilla con los valores definidos en context
         output_text = template.render(context)
 
         # Configuración para pdfkit con el archivo externo wkhtmltopdf.
         config = pdfkit.configuration(wkhtmltopdf=r"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
 
+        # Definimos las opciones sobre configuración que vamos aplicar a la hora de construir el pdf, que posee las caracteristicas del archivo. 
         options = { 'page-size': 'Letter',
                     'margin-top': '0.05in',
                     'margin-right': '0.05in',
@@ -88,11 +98,13 @@ def generarPdf():
                     'load-error-handling': 'skip',
                     'enable-local-file-access': True}
 
+        # Finalmente construimos el pdf con las caracteristicas anteriormente definidas.
         pdfkit.from_string(output_text, output_pdf, css=rutacss, options = options, configuration=config)
 
+        # Removemos el archivo temporal.
         os.remove(archivo_temporal)
 
-        # Devuelve una respuesta con el PDF adjunto para descargar
+        # Devuelve una respuesta con el PDF adjunto para descargar.
         return redirect(url_for("home"))
 
 if __name__ == '__main__':
