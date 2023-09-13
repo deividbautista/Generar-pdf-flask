@@ -1,8 +1,11 @@
+
+# Apartado donde se importaran todos los modulos necesarios para el funcionamiento del proyecto.
 from flask import Flask, render_template, Response, request
 from tempfile import TemporaryFile
 import io
 from xhtml2pdf import pisa
 
+# Variable que guarda el nombre del archivo de arranque para la ejecución del codigo. 
 app = Flask(__name__)
 
 @app.route('/')
