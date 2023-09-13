@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styleAlerts.css">
+    <title>Formulario para generar pdf</title>
+</head>
+
+<body>
+    <h1>Formulario</h1>
+    <form method="POST" action="/generar_pdf" enctype="multipart/form-data">
+        <!-- Aquí coloca los campos del formulario -->
+        <!--Campo para diligenciar titulo principal-->
+        <label for="nombre">Raza</label>
+        <input type="text" id="raza" name="raza" required>
+        <!--Campo para diligenciar el nombre-->
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <!--Campo para agregar la descripción-->
+        <textarea name="descripcion" placeholder="Descripción"></textarea>
+        <!--Campo para seleccionar imagen-->
+        <label for="nombre">Imagen</label>
+        <input type="file" name='archivo'>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <!-- {%block body%}
+    {% if (typeAlert==1) %}
+    <div class="toast_alert active">
+        <div class="toast_alert-content">
+            <i class="fa-solid fa-check check"></i>
+            <div class="message">
+                <span class="text text-1">Pdf generado correctamente 🥳</span>
+                <span class="text text-2">{{ msjAlert }}</span>
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+        <div class="progress active"></div>
+    </div>
+    {% endif %}
+    {%endblock body%} -->
+</body>
+<script src="../static/js/alerts.js"></script>
+<script src="https://kit.fontawesome.com/9c61ead5a6.js" crossorigin="anonymous"></script>
+</html>
