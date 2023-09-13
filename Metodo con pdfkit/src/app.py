@@ -12,8 +12,8 @@ app = flask.Flask(__name__)
 # ---------------------------------------------------------------------------
 # Apartado de rutas importantes.
 RUTA_TEMPORAL = 'src/static/temp'
-output_pdf = r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\pdf\pdf_generado.pdf"
-rutacss= r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\css\stylePlantilla.css"
+output_pdf = r"ruta absoluta donde se guardara el pdf"
+rutacss= r"ruta absoluta donde se encuentra el archivo css"
 # ---------------------------------------------------------------------------
 
 
