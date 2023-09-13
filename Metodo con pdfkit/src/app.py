@@ -12,8 +12,14 @@ app = flask.Flask(__name__)
 # ---------------------------------------------------------------------------
 # Apartado de rutas importantes.
 RUTA_TEMPORAL = 'src/static/temp'
-output_pdf = r"ruta absoluta donde se guardara el pdf"
-rutacss= r"ruta absoluta donde se encuentra el archivo css"
+# ---------------------------------------------------------------------------
+# ATENCION!!!
+# ---------------------------------------------------------------------------
+# En el siguiente apartado se debe de ajustar las rutas absolutas las cuales seran diferentes para cada caso.
+# Las rutas absolutas son aquellas que van desde la raíz, osea se determinan desde el disco o unidad de almacenamiento del proyecto.
+# Ejemplo de una ruta absoluta: "C:\Users\TuUsuario\Documentos\mi_archivo.txt", como podemos ver empieza desde el disco local "C".
+output_pdf = r"ruta absoluta donde se guardara el archivo tipo pdf"
+rutacss= r"ruta absoluta donde se encuentra el archivo tipo css"
 # ---------------------------------------------------------------------------
 
 
