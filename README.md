@@ -1,5 +1,5 @@
 ## Generar-pdf-flask
-En el presente repositorio se observara de manera empirica como desarrollar un modulo parala generacion de pdf con el lenguaje de programación, utilizando para cada metodo distintas librerias y configuraciones que se pueden ajustar a las necesidades de nuestros proyectos. // In this repository it will be observed empirically how to develop a module for the generation of pdf with the programming language, using for each method different libraries and configurations that can be adjusted to the needs of our projects.
+En el presente repositorio se observara de manera empirica como desarrollar un modulo para la generacion de pdf con el lenguaje de programación PYTHON, utilizando para cada metodo distintas librerias y configuraciones que se pueden ajustar a las necesidades de nuestros proyectos. // In this repository we will observe empirically how to develop a module for generating PDFs with the PYTHON programming language, using different libraries and configurations for each method that can be adjusted to the needs of our projects.
 
 ## Requisitos previos
 * Python [python download](https://www.python.org/downloads/release/python-31010/)
