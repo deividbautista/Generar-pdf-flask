@@ -8,9 +8,24 @@ from xhtml2pdf import pisa
 # Variable que guarda el nombre del archivo de arranque para la ejecución del codigo. 
 app = Flask(__name__)
 
+# Ruta principal donde se encuentra el formulario para la generación de pdf.
 @app.route('/')
 def home():
     return render_template("index.html")
+
+# Función para verificar si la extensión del archivo es compalible.
+def extensiones_validas(filename):
+    # Lista de extensiones permitidas para los archivos de imagen.
+    extensiones_permitidas = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+
+    # Obtener la extensión del archivo.
+    extension = filename.rsplit('.', 1)[1].lower()
+
+    # Verificar si la extensión está permitida.
+    if '.' in filename and extension in extensiones_permitidas:
+        return True
+    else:
+        return False
 
 @app.route('/generar_pdf', methods=['GET', 'POST'])
 def generate_pdf():
@@ -21,15 +36,18 @@ def generate_pdf():
         descripcion = request.form['descripcion']
         imagen = request.files['archivo']
 
-        # Verifica si se envió una imagen y procesa su contenido
-        if imagen.filename != '':
+        # Condicional donde utilizaremos la funcion de extensiones_validas, para evaluar si el archivo esta permitido o no.
+        if(request.files['archivo'] and extensiones_validas(imagen.filename)):
             # Crea un archivo temporal para guardar la imagen
             with TemporaryFile(delete=False) as tmp_file:
                 imagen.save(tmp_file)
 
             # Obtén la ruta del archivo temporal
             ruta_temporal = tmp_file.name
-            
+        else:
+            # En caso de no tener un archivo permitido se retornara el mensaje de error.
+            return "archivo invalido"         
+           
         # Renderiza la plantilla HTML y reemplaza los marcadores de posición con datos
         rendered_template = render_template('example.html', raza=raza, nombre_hermano=nombre, descripcion=descripcion, imagen=ruta_temporal)
         
