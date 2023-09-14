@@ -11,7 +11,6 @@
     overflow: hidden;
     transform: translateX(calc(100% + 30px));
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
-
     animation: efectoBounce .3s ease alternate;
     /*animation: efectoBounce .3s ease infinite alternate; */
 }
@@ -107,5 +106,5 @@
 @keyframes efectoBounce{
     0% {transform: translateY(0px);}
     100% {transform: translateY(-10px);}
-  }
+}
   

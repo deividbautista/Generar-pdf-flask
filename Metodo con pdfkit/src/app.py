@@ -12,14 +12,8 @@ app = flask.Flask(__name__)
 # ---------------------------------------------------------------------------
 # Apartado de rutas importantes.
 RUTA_TEMPORAL = 'src/static/temp'
-# ---------------------------------------------------------------------------
-# ATENCION!!!
-# ---------------------------------------------------------------------------
-# En el siguiente apartado se debe de ajustar las rutas absolutas las cuales seran diferentes para cada caso.
-# Las rutas absolutas son aquellas que van desde la raíz, osea se determinan desde el disco o unidad de almacenamiento del proyecto.
-# Ejemplo de una ruta absoluta: "C:\Users\TuUsuario\Documentos\mi_archivo.txt", como podemos ver empieza desde el disco local "C".
-output_pdf = r"ruta absoluta donde se guardara el archivo tipo pdf"
-rutacss= r"ruta absoluta donde se encuentra el archivo tipo css"
+output_pdf = r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\pdf\pdf_generado.pdf"
+rutacss= r"E:\documentación etapa productiva -_-\Proyecto_APEI\GENERAR-PDF\Metodo con pdfkit\src\static\css\stylePlantilla.css"
 # ---------------------------------------------------------------------------
 
 
@@ -71,7 +65,7 @@ def generarPdf():
             imagen = 'E:/documentación etapa productiva -_-/Proyecto_APEI/GENERAR-PDF/Metodo con pdfkit/src/static/temp' + '/' + nombre_archivo
         else:
             # En caso de no tener un archivo permitido se retornara el mensaje de error.
-            return "archivo invalido como tu papa gonorrea"
+            return "archivo invalido"
 
         # Definimos la variable context para definir los apartados a renderizar en la plantilla html antes de construir el pdf.
         context = {'Raza': raza, 'imagen': imagen, 'descripcion': descripcion, 'nombre_hermano':nombre_hermano}
