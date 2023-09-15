@@ -5,28 +5,37 @@ from tempfile import TemporaryFile
 import io
 from xhtml2pdf import pisa
 
-# Variable que guarda el nombre del archivo de arranque para la ejecución del codigo. 
+# Variable que guarda el nombre del archivo de arranque para la ejecución del código. 
 app = Flask(__name__)
 
 # Ruta principal donde se encuentra el formulario para la generación de pdf.
 @app.route('/')
+# Función que retorna la vista del archivo html con el maquetado principal
+# del proyecto "Index principal".
 def home():
     return render_template("index.html")
 
-# Función para verificar si la extensión del archivo es compalible.
+# Función para verificar si la extensión del archivo es compatible.
 def extensiones_validas(filename):
-    # Lista de extensiones permitidas para los archivos de imagen.
+    # Lista de extensiones permitidas para los archivos de imagen "PERMITIDOS".
     extensiones_permitidas = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
-    # Obtener la extensión del archivo.
+    # Obtener la extensión del archivo que se desea evaluar si se encuentra entre los parametros.
+    # Esto funciona al definir una variable de llamada estension, la cual obtendra como valor el str
+    # que se obtiene al separar el nombre del archivo por el separador de ".", y desplazando el valor
+    # de la cadena creada al final, donde se encontrara la extensión, osea se obtiene la cadena de texto
+    # despues del punto ".".
     extension = filename.rsplit('.', 1)[1].lower()
 
     # Verificar si la extensión está permitida.
     if '.' in filename and extension in extensiones_permitidas:
+        # Retornar verdadero si el resultado es positivo.
         return True
     else:
+        # Reetornar falso si el resultado es negativo.
         return False
 
+# Ruta principal para la construcción del pdf.
 @app.route('/generar_pdf', methods=['GET', 'POST'])
 def generate_pdf():
     if request.method == 'POST':
@@ -77,6 +86,7 @@ def generate_pdf():
         with open(ruta_de_guardado, 'wb') as pdf_file:
             pdf_file.write(pdf_buffer.getvalue())
         
+        # Retorna la petición http, entregando el resultado, osea la visualización del pdf construido.  
         return response
     else:
         # Si no se envió el formulario, muestra un mensaje
@@ -84,5 +94,6 @@ def generate_pdf():
         return mensaje
 
 
+# Condicional encargada de arrancar o inicializar el proyecto.
 if __name__ == '__main__':
     app.run(debug=True,  port=5030)
